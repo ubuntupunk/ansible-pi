@@ -1,0 +1,9 @@
+- name: Download pyenv install script
+  get_url:
+    url: https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer
+    dest: /tmp/rbenv-installer
+    mode: 0755
+
+- name: Run install script
+  shell: /tmp/install_pyenv.sh
+

@@ -1,0 +1,66 @@
+- name: Setup Additional Repos                                                                                                                                                                   
+  become: true
+  block:
+  - name: Add VSCode APT repository
+          ansible.builtin.deb822_repository:
+            name: vscode
+            types: [deb]
+            uris: "https://packages.microsoft.com/repos/code"
+            signed_by: "https://packages.microsoft.com/keys/microsoft.asc"
+            suites: [stable]
+            components: [main]
+            state: present
+            enabled: yes  
+      
+#new 2023 method requires Ansible 2.15 or later        
+   - name: Add i3wm repo using key from URL.
+         ansible.builtin.deb822_repository:
+           name: i3wm
+           types: [deb]
+           uris: "https://baltocdn.com/i3-window-manager/i3/i3-autobuild-ubuntu/"
+           components: [main]
+           signed_by: https://baltocdn.com/i3-window-manager/signing.asc
+           state: present
+           enabled: yes
+
+   - name: Add Hashicorp Stable APT repository
+        ansible.builtin.deb822_repository:
+           name: hashicorp
+           types: [deb]
+           uris: "https://apt.releases.hashicorp.com"
+           signed_by: "https://apt.releases.hashicorp.com/gpg"
+           suites: []
+           components: [main]
+           state: present
+           enabled: yes      
+
+   - name: Add google-cloud-cli APT repository
+        ansible.builtin.deb822_repository:
+          name: google-cloud-cli
+          types: [deb]
+          uris: "https://packages.cloud.google.com/apt"
+          signed_by: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+          suites: [cloud-sdk]
+          components: [main]
+          state: present
+          enabled: yes
+     
+#Traditional Method      
+#- name: Add Jenkins apt repository key.
+#  ansible.builtin.apt_key:
+#    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+#    state: present
+
+#- name: Add Jenkins apt repository.
+#  ansible.builtin.apt_repository:
+#    repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+#    state: present
+
+#Replaced by this Method (pre-2023)
+#see: https://www.jeffgeerling.com/blog/2022/aptkey-deprecated-debianubuntu-how-fix-ansible      
+#- name: Add Jenkins apt repository key.
+#  ansible.builtin.get_url:
+#    url: "{{ jenkins_repo_key_url }}"
+#    dest: /etc/apt/trusted.gpg.d/jenkins.asc
+#    mode: '0644'
+#    force: true      
