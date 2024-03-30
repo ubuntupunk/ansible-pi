@@ -12,8 +12,81 @@
   apt:
     pkg:
       - git
+      - dunst
+      - feh
+      - flameshot
+      - fzf
+      - i3
+      - joshuto
+      - groff
+      - redshift
+      - rofi
+      - rtv
       - sqlite3
+      - sxiv
+      - vim
+      - zathura       
 
+- name: Get Chezmoi
+  become: true
+  get_url:
+      url: https://get.chezmoi.io                                                                                                                                                                 
+      dest: /tmp/install_chezmoi.sh
+      mode: 0755        
+
+- name: Run Chez install script
+     shell: /tmp/install_chezmoi.sh
+     become: true
+        
+
+- name: Create a Code working directory if it does not exist
+  ansible.builtin.file:
+    path: {{ansible.env.HOME}}/Code
+    state: directory
+    mode: '0755'
+
+- name: Clone Transcrypt repository
+    git:
+      repo: 'https://github.com/elasticdog/transcrypt.git'
+      dest: "{{ansible_env.HOME}}/Code/"
+                                                                                                                                                                                             
+  - name: Create a build directory if it does not exist
+    file:
+      path: "{{ transcrypt_build_dir }}"
+      state: directory
+ 
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: '{{ansible_env.HOME}}/Code/transcrypt'
+    dest: '{{ansible_env.HOME}}/.local/bin/transcrypt'
+    owner: '{{ ansible_user_id }}'
+    group: '{{ ansible_user_id }}'
+    state: link
+
+  - name: Link transcrypt
+    shell: ln -s ${PWD}/transcrypt {{ansible_env.HOME}}/.local/bin/transcrypt
+
+- name: Clone Bolt 
+  git:
+    repo: https://github.com/salman-abedin/bolt.git
+    dest: "{{ansible_env.HOME}}/Code/" 
+
+- name: Build Bolt
+  make:
+      chdir: "{{ bolt_build_dir }}"
+   
+- name: Install Bolt
+    become: true
+    make:
+      chdir: "{{ bolt_build_dir }}"
+      target: install
+
+- name: Make Bolt Executable
+  ansible.builtin.file:
+    path: {{ansible.env.HOME}}.local/bin/bolt
+    state: touch
+    mode: a+x        
+      
 - name: Crontab - setup update and upgrade
   become: true
   cron:

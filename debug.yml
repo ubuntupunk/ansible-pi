@@ -6,3 +6,6 @@
     - name: Print message
       ansible.builtin.debug:
         msg: Hello world
+
+- name: DryRun
+  #ansible-playbook myplaybook.yml --check --diff  

@@ -1,6 +1,6 @@
 venv
 .pdm-python
 .vscode
-
+,swp
 main.yml
 inventory.yml
