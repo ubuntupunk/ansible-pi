@@ -12,7 +12,23 @@
   apt:
     pkg:
       - git
+      - bolt
+      - dunst
+      - chezmoi
+      - feh
+      - flameshot
+      - fzf
+      - i3
+      - joshuto
+      - groff
+      - redshift
+      - rofi
+      - rtv
       - sqlite3
+      - sxiv
+      - transcrypt
+      - vim
+      - zathura
 
 - name: Crontab - setup update and upgrade
   become: true
