@@ -3,7 +3,7 @@
   block:
 
 #Add VSCode APT repository  
-- name: vscode
+  - name: vscode
     deb822_repository:
     types: [deb]
     uris: "https://packages.microsoft.com/repos/code"
@@ -25,7 +25,7 @@
     enabled: yes
 
 #Add Hashicorp Stable APT repository
-- name: hashicorp
+  - name: hashicorp
     deb822_repository:
     types: [deb]
     uris: "https://apt.releases.hashicorp.com"
@@ -36,7 +36,7 @@
     enabled: yes   
    
 #Add google-cloud-cli APT repository
-- name: google-cloud-cli
+  - name: google-cloud-cli
     deb822_repository:
     types: [deb]
     uris: "https://packages.cloud.google.com/apt"
