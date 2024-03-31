@@ -1,0 +1,67 @@
+- name: Main
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    swap_size_mb: 1024
+    git_user_email: "ubuntupunk@gmail.com"
+    git_user_name: "ubuntupunk"
+    zerotier_network_id: "272f5eae16d1da35"
+    airsane_build_dir: "{{ ansible_env.HOME }}/Code/AirSane-build/"
+    bolt_build_dir: "{{ ansible_env.HOME }}/Code/bolt/"  
+    transcrypt_build_dir: ":{{ ansible_env.HOME }}/Code/transcrypt/"
+    usb_device_path: "/dev/sda1"
+    usb_mount_path: "/media/usb"
+ 
+  tasks:
+    - name: Setup Repos
+      ansible.builtin.include_tasks:
+        file: tasks/setup_repos.yml
+
+    - name: Initial setup
+      ansible.builtin.include_tasks:
+        file: tasks/initial_setup.yml
+    
+#    - name: SWAP
+#      ansible.builtin.include_tasks:
+#        file: tasks/swap.yml
+
+    - name: GIT
+      ansible.builtin.include_tasks:
+        file: tasks/git.yml
+
+#    - name: SSH
+#      ansible.builtin.include_tasks:
+#        file: tasks/ssh.yml
+
+    - name: ZeroTier
+      ansible.builtin.include_tasks:
+        file: tasks/zerotier.yml
+
+    - name: pyenv
+      ansible.builtin.include_tasks:
+        file: tasks/pyenv.yml
+
+    - name: CUPS
+      ansible.builtin.include_tasks:
+        file: tasks/cups.yml
+
+    - name: AirSane
+      ansible.builtin.include_tasks:
+        file: tasks/airsane.yml
+
+    - name: Docker
+      ansible.builtin.include_tasks:
+        file: tasks/docker.yml    
+        
+# ========== OPTIONAL ==================
+
+#    - name: Docker to USB
+#      ansible.builtin.include_tasks:
+#        file: tasks/docker_to_usb.yml
+
+#    - name: Personal projects
+#      ansible.builtin.include_tasks:
+#        file: tasks/projects.yml
