@@ -1,0 +1,10 @@
+- name: Download Dotfiles
+  git: 
+    repo: https://github.com/ubuntupunk/dotfiles
+    dest: {{dot_working_dir}}
+
+
+- name: Append Test lineinfile
+  ansible.builtin.lineinfile:
+    path: .bashrc
+    line: "mytest lineinfile"

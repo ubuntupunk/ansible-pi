@@ -4,25 +4,36 @@
   gather_facts: true
 
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: "/usr/bin/python3"
+    home: "{{ansible_env.HOME}}"
     swap_size_mb: 1024
     git_user_email: "ubuntupunk@gmail.com"
     git_user_name: "ubuntupunk"
     zerotier_network_id: "272f5eae16d1da35"
-    airsane_build_dir: "{{ ansible_env.HOME }}/Code/AirSane-build/"
+    airsane_build_dir: "{{ ansible_env.HOME }}/Code/AirSane"
     bolt_build_dir: "{{ ansible_env.HOME }}/Code/bolt/"  
-    transcrypt_build_dir: ":{{ ansible_env.HOME }}/Code/transcrypt/"
+    transcrypt_build_dir: "{{ ansible_env.HOME }}/Code/transcrypt"
+    radio_build_dir: "{{ ansible_env.HOME }}/Code/radio"
+    account: "{{ ansible_env.USER}}"
     usb_device_path: "/dev/sda1"
     usb_mount_path: "/media/usb"
  
   tasks:
+
+    - debug:
+        msg: "{{ ansible_env }}"
+
+    - debug:    
+        msg: "Your HOME Variable : {{ ansible_env.HOME }}"
+
     - name: Setup Repos
       ansible.builtin.include_tasks:
         file: tasks/setup_repos.yml
-
+       
     - name: Initial setup
       ansible.builtin.include_tasks:
         file: tasks/initial_setup.yml
+      
     
 #    - name: SWAP
 #      ansible.builtin.include_tasks:
@@ -31,6 +42,7 @@
     - name: GIT
       ansible.builtin.include_tasks:
         file: tasks/git.yml
+      
 
 #    - name: SSH
 #      ansible.builtin.include_tasks:
@@ -39,22 +51,42 @@
     - name: ZeroTier
       ansible.builtin.include_tasks:
         file: tasks/zerotier.yml
+      
 
     - name: pyenv
       ansible.builtin.include_tasks:
         file: tasks/pyenv.yml
+  
+    - name: Rustup
+      ansible.builtin.include_tasks:
+        file: tasks/rust.yml
+
+    - name: Ruby
+      ansible.builtin.include_tasks:
+        file: tasks/rubenv.yml     
 
     - name: CUPS
       ansible.builtin.include_tasks:
         file: tasks/cups.yml
 
+    - name: Radio
+      ansible.builtin.include_tasks:
+        file: tasks/radio.yml
+    
+       
     - name: AirSane
       ansible.builtin.include_tasks:
         file: tasks/airsane.yml
-
+        
     - name: Docker
       ansible.builtin.include_tasks:
-        file: tasks/docker.yml    
+        file: tasks/docker.yml
+
+    - name: Bash Customise
+      ansible.builtin.include_tasks:
+        file: tasks/bash.yml
+
+             
         
 # ========== OPTIONAL ==================
 

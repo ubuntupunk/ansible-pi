@@ -1,0 +1,23 @@
+- name: Install Radio Dependencies
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    pkg:
+      mpd
+
+- name: Download Radio Sourcecode
+  git: 
+    repo: https://github.com/thezeroalpha/radio
+    dest: "{{radio_build_dir}}"
+
+- name: Build Radio
+  make:
+    chdir: "{{radio_build_dir}}"
+
+- name: Install Radio
+  make:
+    chdir: "{{radio_build_dir }}"
+    target: install
+      
+          

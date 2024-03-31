@@ -17,7 +17,6 @@
       - flameshot
       - fzf
       - i3
-      - joshuto
       - groff
       - redshift
       - rofi
@@ -35,23 +34,22 @@
       mode: 0755        
 
 - name: Run Chez install script
-     shell: /tmp/install_chezmoi.sh
-     become: true
-        
+  shell: "/tmp/install_chezmoi.sh"
+  become: true
 
-- name: Create a Code working directory if it does not exist
+- name: Create a working directory
   ansible.builtin.file:
-    path: {{ansible.env.HOME}}/Code
+    path: "{{home}}/Code"
     state: directory
     mode: '0755'
 
 - name: Clone Transcrypt repository
-    git:
-      repo: 'https://github.com/elasticdog/transcrypt.git'
-      dest: "{{ansible_env.HOME}}/Code/"
+  git:
+    repo: 'https://github.com/elasticdog/transcrypt.git'
+    dest: "{{ansible_env.HOME}}/Code/"
                                                                                                                                                                                              
-  - name: Create a build directory if it does not exist
-    file:
+- name: Create a build directory if it does not exist
+  file:
       path: "{{ transcrypt_build_dir }}"
       state: directory
  
@@ -63,8 +61,8 @@
     group: '{{ ansible_user_id }}'
     state: link
 
-  - name: Link transcrypt
-    shell: ln -s ${PWD}/transcrypt {{ansible_env.HOME}}/.local/bin/transcrypt
+- name: Link transcrypt
+  shell: ln -s ${PWD}/transcrypt {{ansible_env.HOME}}/.local/bin/transcrypt
 
 - name: Clone Bolt 
   git:
@@ -74,16 +72,16 @@
 - name: Build Bolt
   make:
       chdir: "{{ bolt_build_dir }}"
-   
+      
 - name: Install Bolt
-    become: true
-    make:
+  become: true
+  make:
       chdir: "{{ bolt_build_dir }}"
       target: install
 
 - name: Make Bolt Executable
   ansible.builtin.file:
-    path: {{ansible.env.HOME}}.local/bin/bolt
+    path: "{{home}}.local/bin/bolt"
     state: touch
     mode: a+x        
       

@@ -5,46 +5,50 @@
 #Add VSCode APT repository  
   - name: vscode
     deb822_repository:
-    types: [deb]
-    uris: "https://packages.microsoft.com/repos/code"
-    signed_by: "https://packages.microsoft.com/keys/microsoft.asc"
-    suites: [stable]
-    components: [main]
-    state: present
-    enabled: yes  
+      name: vscode
+      types: [deb]
+      uris: "https://packages.microsoft.com/repos/code"
+      signed_by: "https://packages.microsoft.com/keys/microsoft.asc"
+      suites: [stable]
+      components: [main]
+      state: present
+      enabled: yes  
       
 #new 2023 method requires Ansible 2.15 or later
 #Add i3wm repo using key from URL        
   - name: i3wm
     deb822_repository:
-    types: [deb]
-    uris: "https://baltocdn.com/i3-window-manager/i3/i3-autobuild-ubuntu/"
-    components: [main]
-    signed_by: https://baltocdn.com/i3-window-manager/signing.asc
-    state: present
-    enabled: yes
+      name: i3wm
+      types: [deb]
+      uris: "https://baltocdn.com/i3-window-manager/i3/i3-autobuild-ubuntu/"
+      components: [main]
+      signed_by: https://baltocdn.com/i3-window-manager/signing.asc
+      state: present
+      enabled: yes
 
 #Add Hashicorp Stable APT repository
   - name: hashicorp
     deb822_repository:
-    types: [deb]
-    uris: "https://apt.releases.hashicorp.com"
-    signed_by: "https://apt.releases.hashicorp.com/gpg"
-    suites: []
-    components: [main]
-    state: present
-    enabled: yes   
+      name: i3wm
+      types: [deb]
+      uris: "https://apt.releases.hashicorp.com"
+      signed_by: "https://apt.releases.hashicorp.com/gpg"
+      suites: []
+      components: [main]
+      state: present
+      enabled: yes   
    
 #Add google-cloud-cli APT repository
   - name: google-cloud-cli
     deb822_repository:
-    types: [deb]
-    uris: "https://packages.cloud.google.com/apt"
-    signed_by: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-    suites: [cloud-sdk]
-    components: [main]
-    state: present
-    enabled: yes
+      name: i3wm
+      types: [deb]
+      uris: "https://packages.cloud.google.com/apt"
+      signed_by: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+      suites: [cloud-sdk]
+      components: [main]
+      state: present
+      enabled: yes
      
 #Traditional Method      
 #- name: Add Jenkins apt repository key.

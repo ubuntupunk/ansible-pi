@@ -11,7 +11,7 @@
 - name: Add user to lpadmin group
   become: true
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_env.USER }}"
     groups: lpadmin
     append: yes
 

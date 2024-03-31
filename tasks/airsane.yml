@@ -33,17 +33,15 @@
 - name: Clone AirSane repository
   git:
     repo: 'https://github.com/SimulPiscator/AirSane.git'
-    dest: "{{ansible_env.HOME}}/Projects/AirSane"
+    dest: "{{ansible_env.HOME}}/Code/"
 
 - name: Create a build directory if it does not exist
   file:
     path: "{{ airsane_build_dir }}"
-    state: directory
+    state: directory    
 
-- name: Cmake AirSane
-  shell: cmake ../AirSane
-  args:
-    chdir: "{{ airsane_build_dir }}"
+- name: Cmake 
+  command: "chdir {{ airsane_build_dir }} && cmake"
 
 - name: Build AirSane
   make:
