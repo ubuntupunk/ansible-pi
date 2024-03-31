@@ -14,6 +14,7 @@
     bolt_build_dir: "{{ ansible_env.HOME }}/Code/bolt/"  
     transcrypt_build_dir: "{{ ansible_env.HOME }}/Code/transcrypt"
     radio_build_dir: "{{ ansible_env.HOME }}/Code/radio"
+    dot_working_dir: "{{ ansible_env.HOME }}/Code/dotfiles"
     account: "{{ ansible_env.USER}}"
     usb_device_path: "/dev/sda1"
     usb_mount_path: "/media/usb"

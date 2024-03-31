@@ -8,7 +8,7 @@
 
 - name: Download Radio Sourcecode
   git: 
-    repo: https://github.com/thezeroalpha/radio
+    repo: git@codeberg.org:ubuntupunk/radio.git
     dest: "{{radio_build_dir}}"
 
 - name: Build Radio
