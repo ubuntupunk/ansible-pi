@@ -11,3 +11,5 @@
   become_user: "{{account}}"
   shell: bash /tmp/rbenv-installer
 
+- name: Install J for Jot Task
+  shell: gem install j
