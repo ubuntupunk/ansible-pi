@@ -1,23 +1,26 @@
 - name: Download Dotfiles
   git: 
     repo: https://github.com/ubuntupunk/dotfiles
-    dest: "{{ ansible_env.HOME }}/Code"
+    dest: "{{ ansible_env.HOME }}/Code/dotfiles"
 
 - name: Ensure .bash_aliases exist
   copy:
     content: ""
-    dest: "{{ansible.env.HOME}}/.bash_aliases"
+    dest: "{{ansible_env.HOME}}/.bash_aliases"
     force: false
     group: "{{account}}"
     owner: "{{account}}"   
-    mode: 0555
+    mode: 644
 
 - name: Make sure aliases content is present in .bash_aliases
+  become: true
   blockinfile:
-    path: .bash_aliases
-    block: "{{ lookup('file', '{{ansible_env.HOME}}Code/dotfiles/.bash_aliases') }}"
+    dest: "{{ ansible_env.HOME }}/.bash_aliases"
+    block: "{{ lookup('file', '{{dot_working_dir}}/.bash_aliases') }}"
+    marker: '# {mark} ANSIBLE MANAGED BLOCK - bash'
+    create: yes
 
-- name: Append Test lineinfile
-  ansible.builtin.lineinfile:
-    path: .bashrc
-    line: "mytest lineinfile"
+#- name: Append Test lineinfile
+#  ansible.builtin.lineinfile:
+#    path: .bashrc
+#    line: "mytest lineinfile"

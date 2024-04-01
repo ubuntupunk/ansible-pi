@@ -7,6 +7,7 @@
       - cups
       - printer-driver-escpr
     state: latest
+  tags: t31
 
 - name: Add user to lpadmin group
   become: true
@@ -14,13 +15,16 @@
     name: "{{ ansible_env.USER }}"
     groups: lpadmin
     append: yes
+  tags: t32
 
 - name: Setup cups
   become: true
   shell: cupsctl --remote-admin --remote-any --share-printers
+  tags: t33
 
 - name: Restart cups service
   become: true
   service:
     name: cups
     state: restarted
+  tags: t34

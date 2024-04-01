@@ -10,7 +10,7 @@
     git_user_email: "ubuntupunk@gmail.com"
     git_user_name: "ubuntupunk"
     zerotier_network_id: "272f5eae16d1da35"
-    airsane_build_dir: "{{ ansible_env.HOME }}/Code/AirSane"
+    airsane_build_dir: "{{ ansible_env.HOME }}/Code/AirSane-build"
     bolt_build_dir: "{{ ansible_env.HOME }}/Code/bolt/"  
     transcrypt_build_dir: "{{ ansible_env.HOME }}/Code/transcrypt"
     radio_build_dir: "{{ ansible_env.HOME }}/Code/radio"
@@ -23,18 +23,21 @@
 
     - debug:
         msg: "{{ ansible_env }}"
+      tags: task1
 
     - debug:    
-        msg: "Your HOME Variable : {{ ansible_env.HOME }}"
+        msg: "Output of your HOME variable: {{ ansible_env.HOME }}"
+      tags: task2
 
     - name: Setup Repos
       ansible.builtin.include_tasks:
         file: tasks/setup_repos.yml
-       
+      tags: task3
+      
     - name: Initial setup
       ansible.builtin.include_tasks:
         file: tasks/initial_setup.yml
-      
+      tags: task4
     
 #    - name: SWAP
 #      ansible.builtin.include_tasks:
@@ -43,7 +46,7 @@
     - name: GIT
       ansible.builtin.include_tasks:
         file: tasks/git.yml
-      
+      tags: task5
 
 #    - name: SSH
 #      ansible.builtin.include_tasks:
@@ -52,42 +55,52 @@
     - name: ZeroTier
       ansible.builtin.include_tasks:
         file: tasks/zerotier.yml
-      
+      tags: task6
 
     - name: pyenv
       ansible.builtin.include_tasks:
         file: tasks/pyenv.yml
-  
+      tags: task7
+
     - name: Rustup
       ansible.builtin.include_tasks:
         file: tasks/rust.yml
+      tags: task8
 
     - name: Ruby
       ansible.builtin.include_tasks:
         file: tasks/rubenv.yml     
+      tags: task9
 
     - name: CUPS
       ansible.builtin.include_tasks:
         file: tasks/cups.yml
+      tags: task10
 
     - name: Radio
       ansible.builtin.include_tasks:
         file: tasks/radio.yml
-    
+      tags: task11   
        
     - name: AirSane
       ansible.builtin.include_tasks:
         file: tasks/airsane.yml
-        
+      tags: task12
+  
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/docker.yml
+      tags: task13
 
     - name: Bash Customise
       ansible.builtin.include_tasks:
         file: tasks/bash.yml
-
-             
+      tags: task14
+   
+    - name: Setup i3wm
+      ansible.builtin.include_tasks:
+        file: tasks/i3wmsetup.yml
+      tags: task15           
         
 # ========== OPTIONAL ==================
 

@@ -1,15 +1,27 @@
-- name: Download pyenv install script
+- name: Install rbenv
   become: true
-  get_url:
-    url: https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer
-    dest: /tmp/rbenv-installer
-    mode: 0755
+  apt:
+    pkg:
+      - rbenv
+  tags: t28
 
-- name: Run install script
+- name: Add rbenv to .bashrc
+  blockinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    block: |
+      export PATH="$HOME/.rbenv/bin:$PATH"
+      eval "$(rbenv init -)"
+    marker: '# {mark} ANSIBLE MANAGED BLOCK - rbenv'
+    create: yes
+  tags: t29
+
+- name: Clone latest Ruby-Build 
+  git:
+    repo: https://github.com/rbenv/ruby-build.git 
+    dest: "{{ansible_env.HOME}}/.rbenv/plugins/ruby-build"
+  tags: ruby-build
+  tags: t30
+
+- name: Install J for Jot
   become: true
-  become_method: sudo
-  become_user: "{{account}}"
-  shell: bash /tmp/rbenv-installer
-
-- name: Install J for Jot Task
-  shell: gem install j
+  shell: "gem install j"

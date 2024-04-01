@@ -4,20 +4,25 @@
     update_cache: true
     cache_valid_time: 3600
     pkg:
-      mpd
+      - mpd
+  tags: t35
 
 - name: Download Radio Sourcecode
   git: 
-    repo: git@codeberg.org:ubuntupunk/radio.git
-    dest: "{{radio_build_dir}}"
+#    repo: https://codeberg.org/ubuntupunk/radio
+   repo: https://github.com/thezeroalpha/radio 
+   dest: "{{radio_build_dir}}"
+  tags: t36
 
 - name: Build Radio
   make:
     chdir: "{{radio_build_dir}}"
+  tags: t37
 
 - name: Install Radio
+  become: true
   make:
     chdir: "{{radio_build_dir }}"
     target: install
-      
+  tags: t38
           

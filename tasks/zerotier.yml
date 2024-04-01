@@ -3,11 +3,14 @@
     url: https://install.zerotier.com
     dest: /tmp/install_zerotier.sh
     mode: 0755
+  tags: t18
 
 - name: Run install script
   shell: sh /tmp/install_zerotier.sh
   become: true
+  tags: t19
 
 - name: Join zerotier network
   shell: zerotier-cli join "{{ zerotier_network_id }}"
   become: true
+  tags: t20
