@@ -6,9 +6,12 @@
     mode: 0755
   tags: t26
 
-- name: Run install script
+- name: Run install script (this may take a long time)
   become: true
 #  become_method: sudo
 #  become_user: "{{account}}"
   shell: "sh /tmp/sh.rustup.rs -y"
   tags: t27
+
+- name: Install Joshuto file manager
+  shell: "cargo install joshuto"  

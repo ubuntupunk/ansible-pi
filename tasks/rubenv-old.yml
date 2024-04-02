@@ -1,0 +1,15 @@
+- name: Download pyenv install script
+  become: true
+  get_url:
+    url: https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer
+    dest: /tmp/rbenv-installer
+    mode: 0755
+
+- name: Run install script
+  become: true
+  become_method: sudo
+  become_user: "{{account}}"
+  shell: bash /tmp/rbenv-installer
+
+- name: Install J for Jot Task
+  shell: gem install j

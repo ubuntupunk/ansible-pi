@@ -39,14 +39,15 @@
         file: tasks/initial_setup.yml
       tags: task4
     
-#    - name: SWAP
-#      ansible.builtin.include_tasks:
-#        file: tasks/swap.yml
+    - name: SWAP
+      ansible.builtin.include_tasks:
+        file: tasks/swap.yml
+      tags: task5    
 
     - name: GIT
       ansible.builtin.include_tasks:
         file: tasks/git.yml
-      tags: task5
+      tags: task6
 
 #    - name: SSH
 #      ansible.builtin.include_tasks:
@@ -55,52 +56,52 @@
     - name: ZeroTier
       ansible.builtin.include_tasks:
         file: tasks/zerotier.yml
-      tags: task6
+      tags: task7
 
     - name: pyenv
       ansible.builtin.include_tasks:
         file: tasks/pyenv.yml
-      tags: task7
+      tags: task8
 
     - name: Rustup
       ansible.builtin.include_tasks:
         file: tasks/rust.yml
-      tags: task8
+      tags: task9
 
     - name: Ruby
       ansible.builtin.include_tasks:
         file: tasks/rubenv.yml     
-      tags: task9
+      tags: task10
 
     - name: CUPS
       ansible.builtin.include_tasks:
         file: tasks/cups.yml
-      tags: task10
+      tags: task11
 
     - name: Radio
       ansible.builtin.include_tasks:
         file: tasks/radio.yml
-      tags: task11   
+      tags: task12   
        
     - name: AirSane
       ansible.builtin.include_tasks:
         file: tasks/airsane.yml
-      tags: task12
+      tags: task13
   
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/docker.yml
-      tags: task13
+      tags: task14
 
     - name: Bash Customise
       ansible.builtin.include_tasks:
         file: tasks/bash.yml
-      tags: task14
+      tags: task15
    
     - name: Setup i3wm
       ansible.builtin.include_tasks:
         file: tasks/i3wmsetup.yml
-      tags: task15           
+      tags: task16           
         
 # ========== OPTIONAL ==================
 

@@ -2,6 +2,7 @@
   git: 
     repo: https://github.com/ubuntupunk/dotfiles
     dest: "{{ ansible_env.HOME }}/Code/dotfiles"
+    version: pi3b
 
 - name: Ensure .bash_aliases exist
   copy:
@@ -20,7 +21,36 @@
     marker: '# {mark} ANSIBLE MANAGED BLOCK - bash'
     create: yes
 
+- name: Ensure .bash_functions exist
+  copy:
+    content: ""
+    dest: "{{ansible_env.HOME}}/.bash_functions"
+    force: false
+    group: "{{account}}"
+    owner: "{{account}}"   
+    mode: 644
+
+- name: Make sure functions content is present in .bash_functions
+  become: true
+  blockinfile:
+    dest: "{{ ansible_env.HOME }}/.bash_functions"
+    block: "{{ lookup('file', '{{dot_working_dir}}/.bash_functions') }}"
+    marker: '# {mark} ANSIBLE MANAGED BLOCK - bash'
+    create: yes
+
 #- name: Append Test lineinfile
 #  ansible.builtin.lineinfile:
 #    path: .bashrc
 #    line: "mytest lineinfile"
+
+- name: Add ".bash_aliases" to in bashrc
+  become: true
+  blockinfile:
+    path: {{ansible_env.HOME}}/.bashrc
+    insertafter: "^if [ -f ~/.bash_aliases ]; then
+                  . ~/.bash_aliases
+                  fi"
+    block: |
+           if [ -f ~/.bash_aliases ]; then
+           . ~/.bash_aliases
+           fi

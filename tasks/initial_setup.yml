@@ -30,8 +30,7 @@
 - name: Get Chezmoi
   become: true
   get_url:
-      url: https://get.chezmoi.io                                                                                                                                                                 
-      dest: /tmp/install_chezmoi.sh
+      url: https://get.chezmoi.io                                               dest: /tmp/install_chezmoi.sh
       mode: 0755 
   tags: t4   
 
@@ -63,7 +62,7 @@
     repo: 'https://github.com/elasticdog/transcrypt.git'
     dest: "{{ transcrypt_build_dir }}"
   tags: t9
-                                                                                                                                                                                           
+
 - name: Create a symbolic link
   ansible.builtin.file:
     src: '{{ansible_env.HOME}}/Code/transcrypt'

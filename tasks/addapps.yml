@@ -1,0 +1,18 @@
+TODO
+
+- name: Install packages
+  become: true
+  apt:
+    pkg:
+      - pipx
+
+   tags: 
+
+- name: Install Pi-Apps
+
+- name: Install i3-Resurrect
+  shell: "pix install i3-resurrect"
+
+- name: Install Miniforge
+  geturl: Miniforge3-Linux-aarch64.sh 
+  dest: /tmp/

@@ -1,0 +1,56 @@
+- name: Install packages
+  become: true
+  apt:
+    pkg:
+     - i3
+     - rofi
+     - dmenu
+     - alacritty
+     - sakura  
+     - suckless-tools
+     - diodon
+     - nm-tray  
+     - enscript
+     - pavucontrol
+     - qutebrowser  
+
+- name: Change greeter
+  become: true
+  ansible.builtin.replace:
+    path: "/etc/lightdm/lightdm.conf"
+    regexp: '^greeter-session=pi-greeter'
+    replace: 'greeter-session=lightdm-gtk-greeter/'
+    backup: yes
+
+- name: copy i3 config from repo
+  copy:
+      src: "{{ansible_env.HOME}}/Code/dotfiles/.config/i3/config"
+      dest: "{{ansible_env.HOME}}/.config/i3/config"
+
+- name: Copy ROFI directory from repo to .config
+  copy:
+      src: "{{ansible_env.HOME}}/Code/dotfiles/.config/rofi"
+      dest: "{{ansible_env.HOME}}/.config/"
+
+- name: Comment out default window manager
+  become: true
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.dmrc"
+    regexp: "^Session=LXDE-pi-x"
+    line: "#Session=LXDE-pi-x"
+
+- name: Add i3wm session
+  become: true
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.dmrc"
+    insertbefore: #Session=LXDE-pi-x
+    line: Session=i3
+
+- name: Checkout Pi-Apps
+  git: 
+    repo: "https://github.com/Botspot/pi-apps"
+    dest: "{{ansible_env.HOME}}/Code/"
+
+- name: Install Pi-Apps
+  shell: "chdir={{ansible_env.HOME}}/Code/pi-apps ./install"  
+
