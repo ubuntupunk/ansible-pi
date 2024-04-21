@@ -1,0 +1,8 @@
+-name: Install Zsh
+pkg
+
+
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/mash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/msh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzs
+
+

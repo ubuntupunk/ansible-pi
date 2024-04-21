@@ -1,0 +1,23 @@
+- name: autotile
+  become: true
+
+- name: pip3 install i3ipc
+    pip:
+      name: i3ipc
+      executable: pip3
+    tags:
+
+- name: Download Autotile Source
+  git:
+    repo: https://github.com/nwg-piotr/autotiling
+    dest: /home/pi/Code
+  tags: 
+
+- name: Install Autotile
+   copy:
+     content: "{autotile_dir}/autotile/main.py'
+     dest: " ~/local/bin/autotile"
+     mode: 744
+
+-       
+
