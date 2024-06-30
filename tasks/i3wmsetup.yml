@@ -19,7 +19,7 @@
   ansible.builtin.replace:
     path: "/etc/lightdm/lightdm.conf"
     regexp: '^greeter-session=pi-greeter'
-    replace: 'greeter-session=lightdm-gtk-greeter/'
+    replace: 'greeter-session=lightdm-gtk-greeter'
     backup: yes
 
 - name: copy i3 config from repo
